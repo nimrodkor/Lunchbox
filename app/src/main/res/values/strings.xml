@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Lunchbox</string>
-
+    <string name="facebook_app_id">417635181769409</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome">Welcome To Lunchbox</string>

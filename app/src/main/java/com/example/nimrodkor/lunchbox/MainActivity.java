@@ -1,23 +1,33 @@
 package com.example.nimrodkor.lunchbox;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.facebook.FacebookSdk;
+
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        getFragmentManager().beginTransaction().add(R.id.main_window, new UserLoginFragment()).commit();
+        getFragmentManager().beginTransaction().add(R.id.top_panel, new UserFragment()).commit();
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Fragment fragment = getFragmentManager().findFragmentById(R.id.fragment_login);
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.main_window);
         fragment.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void onLogin(String name, String id) {
+        UserFragment fragment = (UserFragment) getFragmentManager().findFragmentById(R.id.top_panel);
+        fragment.setUser(name, id);
     }
 }
