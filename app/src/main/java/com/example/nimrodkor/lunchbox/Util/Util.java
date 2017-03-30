@@ -1,9 +1,9 @@
-package com.example.nimrodkor.lunchbox;
+package com.example.nimrodkor.lunchbox.Util;
 
 import com.facebook.AccessToken;
 
-class Util {
-    static boolean isLoggedIn() {
+public class Util {
+    public static boolean isLoggedIn() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         return accessToken != null;
     }

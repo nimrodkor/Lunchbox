@@ -46,13 +46,13 @@ public class UserLoginFragment extends Fragment {
                     new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                            // profile2 is the new profile
+                            // profile2 is the new profileStream
                             mActivity.setProfile(currentProfile);
                         }
                     };
                 } else {
                     Profile profile = Profile.getCurrentProfile();
-                    Log.v("facebook - profile", profile.getFirstName());
+                    Log.v("facebook - profileStream", profile.getFirstName());
                 }
             }
 
