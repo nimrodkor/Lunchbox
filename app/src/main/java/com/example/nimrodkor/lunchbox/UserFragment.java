@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.Profile;
@@ -25,8 +24,6 @@ public class UserFragment extends Fragment {
     @BindView(R.id.welcome_user) TextView mWelcome;
     @BindView(R.id.logout_button) Button mLogoutButton;
     @BindView(R.id.profile_pic) ProfilePictureView mProfilePic;
-    private String mId;
-    private String mName;
 
     public UserFragment() {
         // Required empty public constructor
@@ -57,17 +54,16 @@ public class UserFragment extends Fragment {
     }
 
     private void handleProfileChange(Profile profile) {
+        String name;
+        String id;
         if (profile != null) {
-            mId = profile.getId();
-            mName = profile.getName();
-            mWelcome.setText(String.format("%s", mName));
-            mProfilePic.setProfileId(mId);
+            id = profile.getId();
+            name = profile.getName();
+            mWelcome.setText(String.format("%s", name));
+            mProfilePic.setProfileId(id);
             mProfilePic.setVisibility(View.VISIBLE);
             mLogoutButton.setVisibility(View.VISIBLE);
-        }
-        else {
-            mName = null;
-            mId = null;
+        } else {
             mProfilePic.setVisibility(View.GONE);
             mLogoutButton.setVisibility(View.GONE);
             mWelcome.setText(R.string.welcome_guest);
@@ -82,14 +78,6 @@ public class UserFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-    }
-
-    public String getName() {
-        return mName;
-    }
-
-    public String getUserId() {
-        return mId;
     }
 
     @OnClick(R.id.logout_button)

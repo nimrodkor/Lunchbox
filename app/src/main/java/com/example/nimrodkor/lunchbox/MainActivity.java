@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(profile -> {
                     if (Util.isLoggedIn())
-                        onLogin(profile);
+                        onLogin();
                     else
                         onLogout();
                 });
@@ -47,8 +47,7 @@ public class MainActivity extends Activity {
         fragment.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void onLogin(Profile profile) {
-        UserFragment fragment = (UserFragment) getFragmentManager().findFragmentById(R.id.top_panel);
+    public void onLogin() {
         getFragmentManager().beginTransaction().replace(R.id.main_window, new CreateLunchBoxFragment()).commit();
     }
 
