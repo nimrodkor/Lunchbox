@@ -19,7 +19,7 @@ import com.facebook.login.widget.LoginButton;
 
 
 public class UserLoginFragment extends Fragment {
-
+    LoginButton mLoginButton;
     CallbackManager mCallbackManager;
     private MainActivity mActivity;
 
@@ -35,24 +35,19 @@ public class UserLoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_login, container, false);
         //connect to facebook
-        LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
-        loginButton.setFragment(this);
-        loginButton.setReadPermissions("public_profile");
+        mLoginButton = (LoginButton) view.findViewById(R.id.login_button);
+        mLoginButton.setFragment(this);
+        mLoginButton.setReadPermissions("public_profile");
         mCallbackManager = CallbackManager.Factory.create();
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-
-            private ProfileTracker mProfileTracker;
-
+        mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 if (Profile.getCurrentProfile() == null) {
-                    mProfileTracker = new ProfileTracker() {
+                    new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
                             // profile2 is the new profile
-                            Log.v("facebook - profile", currentProfile.getName());
-                            mActivity.onLogin(currentProfile.getName(), currentProfile.getId());
-
+                            mActivity.setProfile(currentProfile);
                         }
                     };
                 } else {
@@ -74,14 +69,9 @@ public class UserLoginFragment extends Fragment {
         return view;
     }
 
-    public void setActivity(MainActivity activity) {
-        mActivity = activity;
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
 }
