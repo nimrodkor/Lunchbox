@@ -20,7 +20,7 @@ import com.facebook.login.widget.LoginButton;
 
 public class UserLoginFragment extends Fragment {
 
-
+    CallbackManager mCallbackManager;
     private MainActivity mActivity;
 
     @Override
@@ -38,8 +38,8 @@ public class UserLoginFragment extends Fragment {
         LoginButton loginButton = (LoginButton) view.findViewById(R.id.login_button);
         loginButton.setFragment(this);
         loginButton.setReadPermissions("public_profile");
-        CallbackManager callbackManager = CallbackManager.Factory.create();
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        mCallbackManager = CallbackManager.Factory.create();
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
 
             private ProfileTracker mProfileTracker;
 
@@ -50,8 +50,7 @@ public class UserLoginFragment extends Fragment {
                         @Override
                         protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
                             // profile2 is the new profile
-                            Log.v("facebook - profile", currentProfile.getFirstName());
-                            mProfileTracker.stopTracking();
+                            Log.v("facebook - profile", currentProfile.getName());
                             mActivity.onLogin(currentProfile.getName(), currentProfile.getId());
 
                         }
@@ -82,6 +81,7 @@ public class UserLoginFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 }

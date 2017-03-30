@@ -6,10 +6,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class UserFragment extends Fragment {
-
+    @BindView(R.id.welcome_user) TextView mWelcome;
+    @BindView(R.id.profile_pic) ImageView mProfilePic;
     private String mId;
     private String mName;
 
@@ -26,8 +32,9 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        View view = inflater.inflate(R.layout.fragment_user, container, false);
+        ButterKnife.bind(this,view);
+        return view;
     }
 
     @Override
@@ -43,6 +50,7 @@ public class UserFragment extends Fragment {
     public void setUser(String name, String id) {
         mId = id;
         mName = name;
+        mWelcome.setText(String.format("%s", mName));
     }
 
     public String getName() {

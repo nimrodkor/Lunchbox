@@ -4,10 +4,26 @@
              android:layout_height="match_parent"
              tools:context="com.example.nimrodkor.lunchbox.UserFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/welcome_user"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_guest"/>
+
+        <ImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
 
 </FrameLayout>
